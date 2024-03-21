@@ -35,5 +35,8 @@ public:
 	void sort_bubble(bool rastuci);
 	void sort_selection(bool rastuci);
 	void sort_inserion(bool rastuci);
+
+private:
+	Node* swap(Node* first, Node* second);
 };
 
