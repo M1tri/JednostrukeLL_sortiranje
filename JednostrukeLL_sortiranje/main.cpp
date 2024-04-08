@@ -1,38 +1,29 @@
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 
 #include "LinkedList.h"
 
 int main(void)
 {
-	LinkedList lista;
+	LinkedList l;
 
-	lista.add_to_head(43);
-	lista.print();
+	l.add_to_head(10);
+	l.add_to_head(12);
+	l.add_to_head(4);
+	l.add_to_head(0);
+	l.add_to_head(13);
+	l.add_to_head(13);
 
-	lista.add_to_head(12);
-	lista.print();
+	l.print();
 
-	lista.add_to_head(100);
-	lista.add_to_end(0);
-	lista.print();
+	l.sort_bubble(true);
 
-	lista.add_to_end(7);
-	lista.add_to_end(1);
-	lista.add_to_end(5);
-	lista.add_to_end(2);
-	lista.print();
+	l.print();
 
-	if (lista.add_at(12, 11))
-		std::cout << "Uspeh\n";
-	lista.print();
-	
-	lista.sort_selection(true);
-	//lista.sort_bubble(true);
-	lista.print();
+	l.sort_bubble(false);
 
-	//lista.sort_bubble(false);
-	lista.print();
+	l.print();
 
 	return 0;
 }

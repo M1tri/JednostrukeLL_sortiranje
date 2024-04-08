@@ -68,57 +68,6 @@ bool LinkedList::add_at(int where, int info)
 	return false;
 }
 
-void LinkedList::sort_bubble(bool rastuci)
-{
-	if (is_empty())
-		return;
-
-	bool sorted = false;
-
-	
-	int lenght = 0;
-	Node* tmp1 = head;
-	while (tmp1)
-	{
-		tmp1 = tmp1->get_link();
-		lenght++;
-	}
-
-	if (lenght <= 1)
-		return;
-
-	bool vece = false;
-	while (!sorted)
-	{
-		sorted = true;
-		vece = head->get_info() >= head->get_link()->get_info();
-
-		// Da li treba menjati elemente se dobija xnor-ovanjem njihovog porednjenja
-		// i smera sortiranja
-		if (!((!vece && rastuci) || (vece && !rastuci))) 
-		{
-			tmp1 = head->get_link();
-			head->set_link(tmp1->get_link());
-			tmp1->set_link(head);
-			head = tmp1;
-			sorted = false;
-		}
-		tmp1 = head;
-		for (int i = 0; i < lenght - 2; i++)
-		{
-			Node* tmp2 = tmp1->get_link();
-			Node* tmp3 = tmp2->get_link();
-
-			vece = tmp2->get_info() >= tmp3->get_info();
-			if (!((!vece && rastuci) || (vece && !rastuci)))
-			{
-				tmp1->set_link(swap(tmp2, tmp3));
-				sorted = false;
-			}
-			tmp1 = tmp1->get_link();
-		}
-	}
-}
 
 void LinkedList::sort_selection(bool rastuci)
 {
@@ -228,13 +177,72 @@ void LinkedList::sort_selection(bool rastuci)
 
 }
 
-// Menja dva susedna cvora, povratna vrednost
-// mora postati link cvora ispred first
-
-Node* LinkedList::swap(Node* first, Node* second)
+void LinkedList::swap_neighbour(Node* prev, Node* ptr)
 {
-	first->set_link(second->get_link());
-	second->set_link(first);
+	if (ptr->get_link() == nullptr)
+		return;
 
-	return second;
+	Node* tmp = ptr->get_link();
+
+	ptr->set_link(tmp->get_link());
+	tmp->set_link(ptr);
+
+	if (prev == nullptr)
+	{
+		head = tmp;
+	}
+	else
+	{
+		prev->set_link(tmp);
+	}
 }
+
+void LinkedList::sort_bubble(bool rastuci)
+{
+	if (is_empty())
+		return;
+
+	Node* tmp = head;
+	int count = 0;
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->get_link();
+	}
+
+	bool sorted = false;
+	while (!sorted)
+	{
+		sorted = true;
+		Node* prev = nullptr;
+		Node* iter = head;
+		int iterations = 0;
+		int n = 0;
+		while (n < count - iterations - 1)
+		{
+			if ((iter->get_info() > iter->get_link()->get_info() && rastuci) 
+				|| (iter->get_info() < iter->get_link()->get_info() && !rastuci))
+			{
+				swap_neighbour(prev, iter);
+				if (prev == nullptr)
+				{
+					prev = head;
+				}
+				else
+				{
+					prev = prev->get_link();
+				}
+				sorted = false;
+			}
+			else
+			{
+				prev = iter;
+				iter = iter->get_link();
+			}
+			n++;
+			//print();
+		}
+		iterations++;
+	}
+}
+

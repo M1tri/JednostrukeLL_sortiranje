@@ -21,6 +21,10 @@ public:
 	void add_to_end(int info);
 	bool add_at(int where, int info);
 
+	// menja mesta na ptr i ptr->next
+	// prev je prethodni od ptr
+	void swap_neighbour(Node* prev, Node* ptr);
+
 	void print()
 	{
 		Node* tmp = head;
@@ -35,8 +39,6 @@ public:
 	void sort_bubble(bool rastuci);
 	void sort_selection(bool rastuci);
 	void sort_inserion(bool rastuci);
-
-private:
-	Node* swap(Node* first, Node* second);
+	
 };
 
