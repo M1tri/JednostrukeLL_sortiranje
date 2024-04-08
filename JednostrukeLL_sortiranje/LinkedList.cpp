@@ -211,12 +211,12 @@ void LinkedList::sort_bubble(bool rastuci)
 	}
 
 	bool sorted = false;
+	int iterations = 0;
 	while (!sorted)
 	{
 		sorted = true;
 		Node* prev = nullptr;
 		Node* iter = head;
-		int iterations = 0;
 		int n = 0;
 		while (n < count - iterations - 1)
 		{
