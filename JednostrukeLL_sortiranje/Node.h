@@ -1,7 +1,7 @@
 #pragma once
 class Node
 {
-private:
+public:
 	int info;
 	Node* link;
 public:
@@ -21,5 +21,8 @@ public:
 	{ 
 		link = novi;
 	}
+
+
+
 };
 
